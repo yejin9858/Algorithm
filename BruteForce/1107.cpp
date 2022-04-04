@@ -15,8 +15,11 @@ int main(void) {
 	cin >> N;
 	cin >> M;
 
-	for (int i = 0; i < M; i++)
-		cin >> buttons[i];
+	for (int i = 0; i < M; i++) {
+		int broken;
+		cin >> broken;
+		buttons[broken] = true;
+	}
 
 	int ans = (N > 100) ? N - 100 : 100 - N;
 
@@ -48,18 +51,14 @@ int main(void) {
 }
 
 bool check(int now) {
-	if(now == 0)
-		for (int j = 0; j < M; j++) {
-			if (!buttons[j])
-				return false;
-		}
+	if (now == 0)
+		if (buttons[0])
+			return false;
 
 	for (int i = now; i > 0; i /= 10) {
 		int num = i % 10;
-		for (int j = 0; j < M; j++) {
-			if (num == buttons[j])
-				return false;
-		}
+		if (buttons[num])
+			return false;
 	}
 
 	return true;
